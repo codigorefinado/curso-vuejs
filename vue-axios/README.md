@@ -1,6 +1,6 @@
-# curso-vuejs
+# vue-axios
 
-> Curso de Vue JS
+> A Vue.js project
 
 ## Build Setup
 
