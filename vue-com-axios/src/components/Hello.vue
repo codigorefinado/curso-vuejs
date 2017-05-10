@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <ul v-if="posts && posts.length">
       <li v-for="post in posts">
         <p><strong>Title: {{post.title}}</strong></p>
@@ -12,6 +13,7 @@
         {{error.message}}
       </li>
     </ul>
+
   </div>
 </template>
 
