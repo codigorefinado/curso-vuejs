@@ -1,63 +1,44 @@
 <template>
-  <div>
-
-    <ul v-if="posts && posts.length">
-      <li v-for="post in posts">
-        <p><strong>Title: {{post.title}}</strong></p>
-        <p>Message: {{post.body}}</p>
-      </li>
-    </ul>
-
-    <ul v-if="errors && errors.length">
-      <li v-for="error in errors">
-        {{error.message}}
-      </li>
-    </ul>
-
+  <div id="app">
+    <form @submit.prevent="search">
+      <input v-model="username" placeholder="Enter a github username!"/>
+    </form>
+    <p v-if="data.name && data.location">
+      {{ data.name }} ({{ data.login }})
+      is from
+      {{ data.location }}!
+    </p>
+    <p v-else>{{ errorMsg }}</p>
   </div>
 </template>
 
 <script>
-
+  import Vue from 'vue'
   import axios from 'axios'
+  import VueAxios from 'vue-axios'
+
+  Vue.use(VueAxios, axios)
 
   export default {
     data () {
       return {
-        posts: [],
-        errors: []
+        username: '',
+        data: [],
+        errorMsg: ''
       }
     },
-    created () {
-      axios.get(`http://jsonplaceholder.typicode.com/posts`)
-        .then(response => {
-          // JSON responses are automatically parsed.
-          this.posts = response.data
+    methods: {
+      search () {
+        const api = `https://api.github.com/users/${this.username}`
+        Vue.axios.get(api).then(response => {
+          this.data = response.data
+          console.log(this.data)
+        }).catch(error => {
+          this.errorMsg = 'No user or no location!'
+          this.data = []
+          console.log(error)
         })
-        .catch(e => {
-          this.errors.push(e)
-        })
+      }
     }
   }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-  h1, h2 {
-    font-weight: normal;
-  }
-
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-
-  li {
-    display: inline-block;
-    margin: 0 20px;
-  }
-
-  a {
-    color: #42b983;
-  }
-</style>
