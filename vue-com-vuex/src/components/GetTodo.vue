@@ -4,7 +4,7 @@
            :value="newTodo"
            @change="getTodo"
            placeholder="Eu preciso fazer...">
-    <button class="btn btn-primary" @click="addTodo">Add Todo</button>
+    <button class="btn btn-primary" @click="addTodo">Adicionar tarefas</button>
   </div>
 </template>
 <script>

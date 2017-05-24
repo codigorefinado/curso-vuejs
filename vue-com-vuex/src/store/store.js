@@ -51,6 +51,10 @@ export default new Vuex.Store({
     completeTodo ({commit}, todo) {
       commit('COMPLETE_TODO', todo)
     },
+    // completeTodo (context, todo) {
+    //   context.commit('COMPLETE_TODO', todo)
+    // },
+
     clearTodo ({commit}) {
       commit('CLEAR_TODO')
     }
